@@ -45,6 +45,14 @@ async function main() {
         proxyConfiguration,
         maxRequestRetries: 5,
         requestHandlerTimeoutSecs: 60,
+        preNavigationHooks: [
+            async ({ page, request }) => {
+                if (request.userData?.warmedUp) return;
+                request.userData ??= {};
+                request.userData.warmedUp = true;
+                await page.goto('https://www.ebay.com/', { waitUntil: 'domcontentloaded', timeout: 30_000 }).catch(() => {});
+            },
+        ],
         async requestHandler({ page, parseWithCheerio, request, sendRequest }) {
             await page.waitForSelector('h1.x-item-title__mainTitle, [data-testid="x-price-primary"]', { timeout: 15_000 }).catch(() => {});
             const $ = await parseWithCheerio();
