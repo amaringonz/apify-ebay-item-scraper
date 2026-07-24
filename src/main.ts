@@ -1,4 +1,5 @@
 import { Actor } from 'apify';
+import type { ProxyConfigurationOptions } from 'apify';
 import { CheerioCrawler, log } from 'crawlee';
 import * as cheerio from 'cheerio';
 import type { EbayItemResult } from './types';
@@ -21,6 +22,7 @@ import {
 
 interface Input {
     url: string;
+    proxyConfiguration?: ProxyConfigurationOptions;
 }
 
 async function main() {
@@ -33,7 +35,9 @@ async function main() {
 
     const { url } = input;
     const itemId = extractItemId(url);
-    const proxyConfiguration = await Actor.createProxyConfiguration();
+    const proxyConfiguration = await Actor.createProxyConfiguration(
+        input.proxyConfiguration ?? { groups: ['RESIDENTIAL'] },
+    );
 
     let extractionSucceeded = false;
 

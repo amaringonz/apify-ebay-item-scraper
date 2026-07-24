@@ -9,6 +9,16 @@
             "editor": "textfield",
             "description": "Full URL of the eBay item page, e.g. https://www.ebay.com/itm/286949138543",
             "pattern": "^https?://([a-z0-9-]+\\.)?ebay\\.[a-z.]+/itm/.+"
+        },
+        "proxyConfiguration": {
+            "title": "Proxy configuration",
+            "type": "object",
+            "editor": "proxy",
+            "description": "eBay blocks Apify's shared datacenter proxy IPs. Select the RESIDENTIAL proxy group (requires that add-on on your Apify plan) for reliable results.",
+            "prefill": {
+                "useApifyProxy": true,
+                "apifyProxyGroups": ["RESIDENTIAL"]
+            }
         }
     },
     "required": ["url"]
