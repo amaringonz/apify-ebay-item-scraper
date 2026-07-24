@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/amaringonz/apify-ebay-item-scraper/compare/v1.2.0...v1.3.0) (2026-07-24)
+
+
+### Features
+
+* enhance proxy configuration and add currency validation for price extraction ([d2f0f8c](https://github.com/amaringonz/apify-ebay-item-scraper/commit/d2f0f8ce03ffa9dc29b125e2cf449363e2be36d6))
+
 # [1.2.0](https://github.com/amaringonz/apify-ebay-item-scraper/compare/v1.1.0...v1.2.0) (2026-07-24)
 
 
