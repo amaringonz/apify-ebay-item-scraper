@@ -213,6 +213,26 @@ export function extractPrice($: CheerioAPI, product: ProductJsonLd | null): Ebay
     return result;
 }
 
+export function extractBrand(product: ProductJsonLd | null, itemSpecifics: Record<string, string>): string | null {
+    return product?.brand?.name ?? itemSpecifics.Brand ?? null;
+}
+
+export function extractWeightDimensions(itemSpecifics: Record<string, string>): {
+    weightRaw: string | null;
+    dimensionsRaw: string | null;
+} {
+    const weightRaw = itemSpecifics['Item Weight'] ?? itemSpecifics['Package Weight'] ?? null;
+
+    const length = itemSpecifics['Item Length'];
+    const width = itemSpecifics['Item Width'];
+    const height = itemSpecifics['Item Height'];
+    const dimensionsRaw = length || width || height
+        ? [length, width, height].filter(Boolean).join(' x ')
+        : itemSpecifics['Item Dimensions'] ?? itemSpecifics['Package Dimensions'] ?? null;
+
+    return { weightRaw, dimensionsRaw };
+}
+
 export function extractCondition(product: ProductJsonLd | null, itemSpecifics: Record<string, string>): string | null {
     if (itemSpecifics.Condition) return itemSpecifics.Condition;
     const schemaCondition = product?.offers?.itemCondition;

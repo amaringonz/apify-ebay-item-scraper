@@ -14,11 +14,14 @@ Give it the URL of any eBay item page and it returns a single structured record 
 | `title` | Item title |
 | `price` | `{ value, currency }` |
 | `condition` | Item condition (e.g. "New", "Used") |
+| `brand` | Brand name, from product JSON-LD or the item specifics "Brand" row |
 | `availability` | `{ inStock, quantityAvailable, quantitySold }` |
 | `images` | Array of full-size image URLs |
 | `seller` | `{ username, feedbackScore, positiveFeedbackPercent }` |
 | `shipping` | `{ cost, location, estimatedDelivery }` |
 | `itemSpecifics` | Key/value map of the "Item specifics" table |
+| `weightRaw` | Raw weight text from item specifics (e.g. "Item Weight"), if the seller listed one |
+| `dimensionsRaw` | Raw "length x width x height" text built from item specifics, if the seller listed them |
 | `description` | Full text of the item description |
 | `variants` | Available options (e.g. size, color) |
 | `reviews` | `{ averageRating, totalReviews }` |

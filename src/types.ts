@@ -4,6 +4,7 @@ export interface EbayItemResult {
     title: string;
     price: { value: number; currency: string; originalValue?: number; discountPercentage?: number } | null;
     condition: string | null;
+    brand: string | null;
     availability: {
         inStock: boolean;
         quantityAvailable?: number;
@@ -21,6 +22,8 @@ export interface EbayItemResult {
         estimatedDelivery?: string;
     };
     itemSpecifics: Record<string, string>;
+    weightRaw: string | null;
+    dimensionsRaw: string | null;
     description: string | null;
     variants?: {
         name: string;

@@ -5,6 +5,7 @@ import * as cheerio from 'cheerio';
 import type { EbayItemResult } from './types';
 import {
     extractAvailability,
+    extractBrand,
     extractCondition,
     extractDescriptionText,
     extractImages,
@@ -17,6 +18,7 @@ import {
     extractShipping,
     extractTitle,
     extractVariants,
+    extractWeightDimensions,
 } from './extract';
 
 interface Input {
@@ -83,17 +85,22 @@ async function main() {
                 log.warning(`Could not extract description iframe for ${request.url}: ${(error as Error).message}`);
             }
 
+            const { weightRaw, dimensionsRaw } = extractWeightDimensions(itemSpecifics);
+
             const result: EbayItemResult = {
                 url: request.url,
                 itemId,
                 title,
                 price,
                 condition: extractCondition(product, itemSpecifics),
+                brand: extractBrand(product, itemSpecifics),
                 availability: extractAvailability($, product),
                 images: extractImages(product, $),
                 seller: extractSeller($),
                 shipping: extractShipping($),
                 itemSpecifics,
+                weightRaw,
+                dimensionsRaw,
                 description,
                 variants: extractVariants($),
                 reviews: extractReviews($),
