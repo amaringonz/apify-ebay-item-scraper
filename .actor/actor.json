@@ -1,0 +1,12 @@
+{
+    "actorSpecification": 1,
+    "name": "ebay-item-scraper",
+    "title": "eBay Item Scraper",
+    "description": "Extracts full product data from a single eBay item page: title, price, condition, images, seller, shipping, item specifics, variants and description.",
+    "version": "0.0",
+    "meta": {
+        "templateId": "ts-crawlee-cheerio"
+    },
+    "input": "./input_schema.json",
+    "dockerfile": "./Dockerfile"
+}

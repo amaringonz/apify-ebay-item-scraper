@@ -1,0 +1,23 @@
+{
+    "name": "ebay-item-scraper",
+    "version": "0.0.1",
+    "description": "Apify actor that extracts full product data from a single eBay item page.",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "dependencies": {
+        "apify": "^3.7.2",
+        "crawlee": "^3.17.0"
+    },
+    "devDependencies": {
+        "@apify/tsconfig": "^0.1.0",
+        "@types/node": "^20",
+        "cheerio": "1.0.0-rc.12",
+        "typescript": "^5.5"
+    },
+    "scripts": {
+        "start": "npm run build && node dist/main.js",
+        "start:dev": "tsc && node dist/main.js",
+        "build": "tsc"
+    }
+}

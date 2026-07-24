@@ -1,0 +1,15 @@
+{
+    "title": "eBay Item Scraper Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "url": {
+            "title": "eBay item URL",
+            "type": "string",
+            "editor": "textfield",
+            "description": "Full URL of the eBay item page, e.g. https://www.ebay.com/itm/286949138543",
+            "pattern": "^https?://([a-z0-9-]+\\.)?ebay\\.[a-z.]+/itm/.+"
+        }
+    },
+    "required": ["url"]
+}
