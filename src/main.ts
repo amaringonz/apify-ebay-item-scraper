@@ -6,7 +6,6 @@ import type { EbayItemResult } from './types';
 import {
     extractAvailability,
     extractCondition,
-    extractDescriptionIframeUrl,
     extractDescriptionText,
     extractImages,
     extractItemId,
@@ -53,7 +52,7 @@ async function main() {
                 await page.goto('https://www.ebay.com/', { waitUntil: 'domcontentloaded', timeout: 30_000 }).catch(() => {});
             },
         ],
-        async requestHandler({ page, parseWithCheerio, request, sendRequest }) {
+        async requestHandler({ page, parseWithCheerio, request }) {
             await page.waitForSelector('h1.x-item-title__mainTitle, [data-testid="x-price-primary"]', { timeout: 15_000 }).catch(() => {});
             const $ = await parseWithCheerio();
 
@@ -68,15 +67,20 @@ async function main() {
             const itemSpecifics = extractItemSpecifics($);
 
             let description: string | null = null;
-            const descIframeUrl = extractDescriptionIframeUrl($);
-            if (descIframeUrl) {
-                try {
-                    const descResponse = await sendRequest({ url: descIframeUrl });
-                    const $desc = cheerio.load(descResponse.body);
-                    description = extractDescriptionText($desc);
-                } catch (error) {
-                    log.warning(`Could not fetch description iframe for ${request.url}: ${(error as Error).message}`);
+            try {
+                const iframeHandle = await page.$('#desc_ifr');
+                if (iframeHandle) {
+                    await iframeHandle.scrollIntoViewIfNeeded().catch(() => {});
+                    const descFrame = await iframeHandle.contentFrame();
+                    if (descFrame) {
+                        await descFrame.waitForLoadState('domcontentloaded', { timeout: 15_000 }).catch(() => {});
+                        const html = await descFrame.content();
+                        const $desc = cheerio.load(html);
+                        description = extractDescriptionText($desc);
+                    }
                 }
+            } catch (error) {
+                log.warning(`Could not extract description iframe for ${request.url}: ${(error as Error).message}`);
             }
 
             const result: EbayItemResult = {

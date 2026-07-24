@@ -224,12 +224,10 @@ export function extractCondition(product: ProductJsonLd | null, itemSpecifics: R
     return null;
 }
 
-export function extractDescriptionIframeUrl($: CheerioAPI): string | null {
-    return $('#desc_ifr').attr('src') ?? null;
-}
-
 export function extractDescriptionText($: CheerioAPI): string {
-    return cleanText($('body').text());
+    const body = $('body').clone();
+    body.find('script, style').remove();
+    return cleanText(body.text());
 }
 
 export function extractReviews($: CheerioAPI): EbayItemResult['reviews'] {
