@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/amaringonz/apify-ebay-item-scraper/compare/v1.1.0...v1.2.0) (2026-07-24)
+
+
+### Features
+
+* add brand, weight, and dimensions fields to item extraction and update README ([68ee6c9](https://github.com/amaringonz/apify-ebay-item-scraper/commit/68ee6c97fa8d85599c4e9af967ef0bf50d2282bb))
+
 # [1.1.0](https://github.com/amaringonz/apify-ebay-item-scraper/compare/v1.0.0...v1.1.0) (2026-07-24)
 
 
