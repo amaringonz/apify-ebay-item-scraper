@@ -13,6 +13,7 @@
                     "availability",
                     "seller",
                     "shipping",
+                    "reviews",
                     "url",
                     "scrapedAt"
                 ]
@@ -46,6 +47,10 @@
                     },
                     "shipping": {
                         "label": "Shipping",
+                        "format": "object"
+                    },
+                    "reviews": {
+                        "label": "Reviews",
                         "format": "object"
                     },
                     "url": {
