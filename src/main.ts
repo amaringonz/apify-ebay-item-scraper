@@ -36,9 +36,11 @@ async function main() {
 
     const { url } = input;
     const itemId = extractItemId(url);
-    const proxyConfiguration = await Actor.createProxyConfiguration(
-        input.proxyConfiguration ?? { groups: ['RESIDENTIAL'] },
-    );
+    const proxyConfiguration = await Actor.createProxyConfiguration({
+        groups: ['RESIDENTIAL'],
+        countryCode: 'US',
+        ...input.proxyConfiguration,
+    });
 
     let extractionSucceeded = false;
 
@@ -64,6 +66,10 @@ async function main() {
 
             if (!title || !price) {
                 throw new Error('Essential fields (title/price) could not be parsed - page may be a block/challenge page.');
+            }
+
+            if (price.currency !== 'USD') {
+                throw new Error(`Price was extracted in ${price.currency} instead of USD - retrying with a different proxy session.`);
             }
 
             const itemSpecifics = extractItemSpecifics($);
