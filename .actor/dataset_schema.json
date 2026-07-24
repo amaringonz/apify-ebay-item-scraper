@@ -1,0 +1,63 @@
+{
+    "actorSpecification": 1,
+    "fields": {},
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "images",
+                    "title",
+                    "price",
+                    "condition",
+                    "availability",
+                    "seller",
+                    "shipping",
+                    "url",
+                    "scrapedAt"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "images": {
+                        "label": "Image",
+                        "format": "array"
+                    },
+                    "title": {
+                        "label": "Title",
+                        "format": "text"
+                    },
+                    "price": {
+                        "label": "Price",
+                        "format": "object"
+                    },
+                    "condition": {
+                        "label": "Condition",
+                        "format": "text"
+                    },
+                    "availability": {
+                        "label": "Availability",
+                        "format": "object"
+                    },
+                    "seller": {
+                        "label": "Seller",
+                        "format": "object"
+                    },
+                    "shipping": {
+                        "label": "Shipping",
+                        "format": "object"
+                    },
+                    "url": {
+                        "label": "URL",
+                        "format": "link"
+                    },
+                    "scrapedAt": {
+                        "label": "Scraped At",
+                        "format": "date"
+                    }
+                }
+            }
+        }
+    }
+}
