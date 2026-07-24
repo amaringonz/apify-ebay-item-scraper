@@ -148,9 +148,16 @@ export function extractVariants($: CheerioAPI): EbayItemResult['variants'] {
 
         const options = $(skuBlock)
             .find('.listbox__option[data-sku-value-name]')
-            .map((_, opt) => $(opt).attr('data-sku-value-name'))
+            .map((_, opt) => {
+                const value = $(opt).attr('data-sku-value-name');
+                if (!value) return null;
+                const isDisabled = $(opt).attr('aria-disabled') === 'true'
+                    || $(opt).is('[disabled]')
+                    || /--state-disabled/.test($(opt).attr('class') ?? '');
+                return { value, available: !isDisabled };
+            })
             .get()
-            .filter((v): v is string => Boolean(v));
+            .filter((v): v is { value: string; available: boolean } => v !== null);
 
         if (options.length) variants.push({ name, options });
     });

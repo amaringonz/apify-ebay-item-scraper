@@ -24,7 +24,7 @@ export interface EbayItemResult {
     description: string | null;
     variants?: {
         name: string;
-        options: string[];
+        options: { value: string; available: boolean }[];
     }[];
     reviews?: {
         averageRating?: number;
