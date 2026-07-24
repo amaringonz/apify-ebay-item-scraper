@@ -12,9 +12,9 @@ RUN npm prune --omit=dev --audit=false
 FROM apify/actor-node-playwright-chrome:20
 
 USER root
-COPY --from=builder /usr/src/app/package*.json ./
-COPY --from=builder /usr/src/app/node_modules ./node_modules
-COPY --from=builder /usr/src/app/dist ./dist
+COPY --from=builder /home/myuser/package*.json ./
+COPY --from=builder /home/myuser/node_modules ./node_modules
+COPY --from=builder /home/myuser/dist ./dist
 
 COPY . ./
 USER myuser

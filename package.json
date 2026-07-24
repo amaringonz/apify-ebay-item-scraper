@@ -1,6 +1,6 @@
 {
     "name": "ebay-item-scraper",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "description": "Apify actor that extracts full product data from a single eBay item page.",
     "engines": {
         "node": ">=18.0.0"
