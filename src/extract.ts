@@ -172,13 +172,37 @@ export function extractTitle($: CheerioAPI, product: ProductJsonLd | null): stri
 }
 
 export function extractPrice($: CheerioAPI, product: ProductJsonLd | null): EbayItemResult['price'] {
+    let value: number;
+    let currency: string;
+
     if (product?.offers?.price && product.offers.priceCurrency) {
-        return { value: Number(product.offers.price), currency: product.offers.priceCurrency };
+        value = Number(product.offers.price);
+        currency = product.offers.priceCurrency;
+    } else {
+        const priceText = $('[data-testid="x-price-primary"] .ux-textspans').first().text();
+        const match = priceText.match(/([\d,]+\.\d{2})/);
+        if (!match) return null;
+        value = Number(match[1].replace(/,/g, ''));
+        currency = 'USD';
     }
-    const priceText = $('[data-testid="x-price-primary"] .ux-textspans').first().text();
-    const match = priceText.match(/([\d,]+\.\d{2})/);
-    if (!match) return null;
-    return { value: Number(match[1].replace(/,/g, '')), currency: 'USD' };
+
+    const result: NonNullable<EbayItemResult['price']> = { value, currency };
+
+    const originalPriceText = $('[data-testid="x-additional-info"] .ux-textspans--STRIKETHROUGH').first().text();
+    const originalMatch = originalPriceText.match(/([\d,]+\.\d{2})/);
+    if (originalMatch) {
+        result.originalValue = Number(originalMatch[1].replace(/,/g, ''));
+    }
+
+    const discountText = $('[data-testid="x-additional-info"] .ux-textspans--EMPHASIS').first().text();
+    const discountMatch = discountText.match(/(\d+)\s*%/);
+    if (discountMatch) {
+        result.discountPercentage = Number(discountMatch[1]);
+    } else if (result.originalValue && result.originalValue > value) {
+        result.discountPercentage = Math.round((1 - value / result.originalValue) * 100);
+    }
+
+    return result;
 }
 
 export function extractCondition(product: ProductJsonLd | null, itemSpecifics: Record<string, string>): string | null {

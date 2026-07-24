@@ -2,7 +2,7 @@ export interface EbayItemResult {
     url: string;
     itemId: string;
     title: string;
-    price: { value: number; currency: string } | null;
+    price: { value: number; currency: string; originalValue?: number; discountPercentage?: number } | null;
     condition: string | null;
     availability: {
         inStock: boolean;
