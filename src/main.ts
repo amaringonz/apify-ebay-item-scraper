@@ -1,6 +1,6 @@
 import { Actor } from 'apify';
 import type { ProxyConfigurationOptions } from 'apify';
-import { CheerioCrawler, log } from 'crawlee';
+import { PlaywrightCrawler, log } from 'crawlee';
 import * as cheerio from 'cheerio';
 import type { EbayItemResult } from './types';
 import {
@@ -41,11 +41,14 @@ async function main() {
 
     let extractionSucceeded = false;
 
-    const crawler = new CheerioCrawler({
+    const crawler = new PlaywrightCrawler({
         proxyConfiguration,
         maxRequestRetries: 5,
         requestHandlerTimeoutSecs: 60,
-        async requestHandler({ $, request, sendRequest }) {
+        async requestHandler({ page, parseWithCheerio, request, sendRequest }) {
+            await page.waitForSelector('h1.x-item-title__mainTitle, [data-testid="x-price-primary"]', { timeout: 15_000 }).catch(() => {});
+            const $ = await parseWithCheerio();
+
             const product = extractProductJsonLd($);
             const title = extractTitle($, product);
             const price = extractPrice($, product);
