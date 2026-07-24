@@ -3,7 +3,7 @@
     "name": "ebay-item-scraper",
     "title": "eBay Item Scraper",
     "description": "Extracts full product data from a single eBay item page: title, price, condition, images, seller, shipping, item specifics, variants and description.",
-    "version": "1.0",
+    "version": "1.1",
     "meta": {
         "templateId": "ts-crawlee-cheerio"
     },

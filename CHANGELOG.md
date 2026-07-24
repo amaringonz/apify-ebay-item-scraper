@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/amaringonz/apify-ebay-item-scraper/compare/v1.0.0...v1.1.0) (2026-07-24)
+
+
+### Features
+
+* remove unused extractDescriptionIframeUrl function and update description extraction logic ([a11b6a3](https://github.com/amaringonz/apify-ebay-item-scraper/commit/a11b6a30d847e9f0778a66f34c7bae5bdf96d36a))
+
 # 1.0.0 (2026-07-24)
 
 
