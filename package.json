@@ -12,13 +12,18 @@
     },
     "devDependencies": {
         "@apify/tsconfig": "^0.1.0",
+        "@semantic-release/changelog": "^7.0.0",
+        "@semantic-release/exec": "^7.1.0",
+        "@semantic-release/git": "^11.0.1",
         "@types/node": "^20",
         "cheerio": "1.0.0-rc.12",
+        "semantic-release": "^25.0.8",
         "typescript": "^5.5"
     },
     "scripts": {
         "start": "npm run build && node dist/main.js",
         "start:dev": "tsc && node dist/main.js",
-        "build": "tsc"
+        "build": "tsc",
+        "release": "semantic-release"
     }
 }
