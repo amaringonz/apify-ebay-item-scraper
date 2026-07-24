@@ -46,6 +46,7 @@ export interface ProductJsonLd {
         availability?: string;
         priceCurrency?: string;
         price?: string;
+        priceSpecification?: { price?: string; priceCurrency?: string; name?: string };
         shippingDetails?: {
             shippingRate?: { value?: string; currency?: string };
             shippingDestination?: { addressCountry?: string };

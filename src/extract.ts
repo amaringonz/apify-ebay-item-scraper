@@ -188,10 +188,18 @@ export function extractPrice($: CheerioAPI, product: ProductJsonLd | null): Ebay
 
     const result: NonNullable<EbayItemResult['price']> = { value, currency };
 
-    const originalPriceText = $('[data-testid="x-additional-info"] .ux-textspans--STRIKETHROUGH').first().text();
-    const originalMatch = originalPriceText.match(/([\d,]+\.\d{2})/);
-    if (originalMatch) {
-        result.originalValue = Number(originalMatch[1].replace(/,/g, ''));
+    const listPrice = product?.offers?.priceSpecification;
+    if (listPrice?.price && (!listPrice.priceCurrency || listPrice.priceCurrency === currency)) {
+        const listValue = Number(listPrice.price);
+        if (listValue > value) result.originalValue = listValue;
+    }
+
+    if (result.originalValue === undefined) {
+        const originalPriceText = $('[data-testid="x-additional-info"] .ux-textspans--STRIKETHROUGH').first().text();
+        const originalMatch = originalPriceText.match(/([\d,]+\.\d{2})/);
+        if (originalMatch) {
+            result.originalValue = Number(originalMatch[1].replace(/,/g, ''));
+        }
     }
 
     const discountText = $('[data-testid="x-additional-info"] .ux-textspans--EMPHASIS').first().text();
