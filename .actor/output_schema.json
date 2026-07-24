@@ -1,0 +1,11 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Output schema of eBay Item Scraper",
+    "properties": {
+        "item": {
+            "type": "string",
+            "title": "Scraped item",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
