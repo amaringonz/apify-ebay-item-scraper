@@ -10,6 +10,7 @@
                     "title",
                     "price",
                     "condition",
+                    "description",
                     "availability",
                     "seller",
                     "shipping",
@@ -35,6 +36,10 @@
                     },
                     "condition": {
                         "label": "Condition",
+                        "format": "text"
+                    },
+                    "description": {
+                        "label": "Item description from the seller",
                         "format": "text"
                     },
                     "availability": {
